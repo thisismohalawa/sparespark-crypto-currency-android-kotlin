@@ -4,30 +4,24 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.unit.dp
 import sparespark.crypto.currency.data.remote.dto.coindetails.TeamMember
+import sparespark.crypto.currency.presentation.components.SubTitle
+import sparespark.crypto.currency.presentation.window.WindowSize
 
 @Composable
 fun TeamListItem(
-    teamMember: TeamMember, modifier: Modifier = Modifier
+    teamMember: TeamMember,
+    windowSize: WindowSize,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier, verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = teamMember.name,
-            color = Color.Black
-        )
+        SubTitle(subTitle = teamMember.name, windowSize = windowSize)
         Spacer(modifier = Modifier.height(2.dp))
-        Text(
-            text = teamMember.position,
-            color = Color.Gray
-        )
+        SubTitle(subTitle = teamMember.position, windowSize = windowSize)
     }
 }

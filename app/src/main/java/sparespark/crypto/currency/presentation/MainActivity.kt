@@ -10,14 +10,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import sparespark.crypto.currency.core.Constants
 import sparespark.crypto.currency.presentation.coindetails.CoinDetailsScreen
 import sparespark.crypto.currency.presentation.coinslist.CoinsListScreen
+import sparespark.crypto.currency.presentation.window.rememberWindowSize
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             val navController = rememberNavController()
+            val window = rememberWindowSize()
+
             NavHost(
                 navController = navController,
                 startDestination = NavScreen.CoinsListNavScreen.route
@@ -28,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = NavScreen.CoinsListNavScreen.route
                 ) {
-                    CoinsListScreen(navController)
+                    CoinsListScreen(navController,window)
                 }
                 /*
                 * SCREEN 2 :
@@ -37,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     route = NavScreen.CoinDetailNavScreen.route +
                             "/{${Constants.PARAM_COIN_ID}}"
                 ) {
-                    CoinDetailsScreen()
+                    CoinDetailsScreen(window)
                 }
             }
         }

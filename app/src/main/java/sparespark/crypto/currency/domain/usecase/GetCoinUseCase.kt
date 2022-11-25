@@ -3,6 +3,7 @@ package sparespark.crypto.currency.domain.usecase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import sparespark.crypto.currency.core.Constants
 import sparespark.crypto.currency.core.Resource
 import sparespark.crypto.currency.data.remote.dto.coindetails.toCoinDetail
 import sparespark.crypto.currency.domain.model.coindetails.CoinDetail
@@ -31,9 +32,9 @@ class GetCoinUseCase @Inject constructor(
             emit(Resource.Success(coin))
 
         } catch (e: HttpException) {
-            emit(Resource.Error(e.message ?: ""))
+            emit(Resource.Error(e.message ?: Constants.ERROR_OCCURRED))
         } catch (e: IOException) {
-            emit(Resource.Error(e.message ?: ""))
+            emit(Resource.Error(e.message ?: Constants.NO_INTERNET))
         }
     }
 }

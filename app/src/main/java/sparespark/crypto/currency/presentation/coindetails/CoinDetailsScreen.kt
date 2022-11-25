@@ -15,15 +15,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.flowlayout.FlowRow
-import master.cryptocurrency.presentation.coindetails.CoinTag
+import sparespark.crypto.currency.presentation.coindetails.components.CoinTag
+import sparespark.crypto.currency.presentation.coindetails.components.MainColoredHelperTitle
+import sparespark.crypto.currency.presentation.coindetails.components.SubColoredHelperTitle
 import sparespark.crypto.currency.presentation.coindetails.components.TeamListItem
-import sparespark.crypto.currency.presentation.coindetails.components.TopRankTitle
-import sparespark.crypto.currency.presentation.coinslist.components.MainTitle
-import sparespark.crypto.currency.presentation.coinslist.components.SubTitle
+import sparespark.crypto.currency.presentation.components.MainTitle
+import sparespark.crypto.currency.presentation.components.SubTitle
+import sparespark.crypto.currency.presentation.window.WindowSize
 
 
 @Composable
 fun CoinDetailsScreen(
+    windowSize: WindowSize,
     viewModel: CoinDetailsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -45,15 +48,14 @@ fun CoinDetailsScreen(
                 modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp)
             ) {
                 item {
-                    TopRankTitle(coin.rank)
-                    MainTitle(mainTitle = "${coin.name} ( ${coin.symbol} )")
-                    Spacer(modifier = Modifier.height(10.dp))
-                    SubTitle(subTitle = coin.description)
+                    MainColoredHelperTitle("R", "ank", "#${coin.rank}", windowSize)
+                    MainTitle(mainTitle = "${coin.name} ( ${coin.symbol} )", windowSize)
+                    SubTitle(subTitle = coin.description, windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                     /*
                     *
                     * */
-                    MainTitle(mainTitle = "Tags")
+                    SubColoredHelperTitle(redTitle = "Tags", blackTitle = "", windowSize = windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                     FlowRow(
                         mainAxisSpacing = 10.dp,
@@ -61,25 +63,28 @@ fun CoinDetailsScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         coin.tags.forEach { tag ->
-                            CoinTag(tag = tag)
+                            CoinTag(tag = tag, windowSize = windowSize)
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
-                    /*
-                    *
-                    * */
-                    MainTitle(mainTitle = "Team Members")
+                    SubColoredHelperTitle(
+                        redTitle = "Team",
+                        blackTitle = " Members",
+                        windowSize = windowSize
+                    )
                     Spacer(modifier = Modifier.height(10.dp))
                 }
                 items(coin.team) { teamMember ->
                     TeamListItem(
                         teamMember = teamMember,
+                        windowSize = windowSize,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(10.dp)
                     )
                     Divider()
                 }
+
             }
         }
     }

@@ -18,4 +18,3 @@ local.properties
 /app/src/main/java/sparespark/crypto/currency/core/Secret.kt
 /app/src/main/java/sparespark/crypto/currency/presentation/coinslist/components/TopInfoTitle.kt
 /app/src/main/java/sparespark/crypto/currency/presentation/coindetails/components/TopRankTitle.kt
-
