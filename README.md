@@ -26,5 +26,5 @@
 
 
 ##### Download:
-[Rate app on google](https://play.google.com/store/apps/details?id=sparespark.crypto.currency) -Live
+[Get the app](https://sites.google.com/view/sparespark-covid-19-statistics) -Alpha-Version
 
