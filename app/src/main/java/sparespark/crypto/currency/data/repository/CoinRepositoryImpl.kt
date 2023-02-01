@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 
 /*
-* has access direct to data..
+* has a direct access to data.
 *
 *
 * */

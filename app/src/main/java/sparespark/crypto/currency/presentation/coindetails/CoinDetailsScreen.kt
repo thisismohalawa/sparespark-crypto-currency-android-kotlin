@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,10 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.flowlayout.FlowRow
 import sparespark.crypto.currency.presentation.coindetails.components.CoinTag
-import sparespark.crypto.currency.presentation.coindetails.components.MainColoredHelperTitle
-import sparespark.crypto.currency.presentation.coindetails.components.SubColoredHelperTitle
 import sparespark.crypto.currency.presentation.coindetails.components.TeamListItem
 import sparespark.crypto.currency.presentation.components.MainTitle
+import sparespark.crypto.currency.presentation.components.RankColoredTitle
 import sparespark.crypto.currency.presentation.components.SubTitle
 import sparespark.crypto.currency.presentation.window.WindowSize
 
@@ -34,28 +32,33 @@ fun CoinDetailsScreen(
         if (state.isLoading) CircularProgressIndicator(
             modifier = Modifier.align(Alignment.Center), color = Color.Red
         )
-        if (state.error.isNotBlank()) Text(
-            text = state.error,
-            color = MaterialTheme.colors.error,
-            textAlign = TextAlign.Center,
+        if (state.error.isNotBlank()) MainTitle(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
-                .align(Alignment.Center)
+                .align(Alignment.Center),
+            title = state.error,
+            windowSize = windowSize,
+            color = MaterialTheme.colors.error,
+            textAlign = TextAlign.Center
         )
+        /*
+        *
+        * Coin.
+        * */
         state.coin?.let { coin ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp)
             ) {
                 item {
-                    MainColoredHelperTitle("R", "ank", "#${coin.rank}", windowSize)
-                    MainTitle(mainTitle = "${coin.name} ( ${coin.symbol} )", windowSize)
-                    SubTitle(subTitle = coin.description, windowSize)
+                    RankColoredTitle("R", "ank", "#${coin.rank}", windowSize)
+                    MainTitle(title = "${coin.name} ( ${coin.symbol} )", windowSize = windowSize)
+                    SubTitle(subTitle = coin.description, windowSize = windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                     /*
                     *
                     * */
-                    SubColoredHelperTitle(redTitle = "Tags", blackTitle = "", windowSize = windowSize)
+                    RankColoredTitle("T", "ags", windowSize = windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                     FlowRow(
                         mainAxisSpacing = 10.dp,
@@ -67,13 +70,10 @@ fun CoinDetailsScreen(
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
-                    SubColoredHelperTitle(
-                        redTitle = "Team",
-                        blackTitle = " Members",
-                        windowSize = windowSize
-                    )
+                    RankColoredTitle("T", "eam Members", windowSize = windowSize)
                     Spacer(modifier = Modifier.height(10.dp))
                 }
+
                 items(coin.team) { teamMember ->
                     TeamListItem(
                         teamMember = teamMember,
@@ -84,7 +84,6 @@ fun CoinDetailsScreen(
                     )
                     Divider()
                 }
-
             }
         }
     }

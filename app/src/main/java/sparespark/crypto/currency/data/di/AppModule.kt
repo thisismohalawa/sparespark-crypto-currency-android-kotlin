@@ -13,10 +13,10 @@ import sparespark.crypto.currency.domain.repository.CoinRepository
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class) // all dependency in module live as long as application.
+@InstallIn(SingletonComponent::class) // all dependency in module lives as long as application lives.
 object AppModule {
 
-    @Provides
+    @Provides // provide a dependency.
     @Singleton // single instance of CoinPaprikaService object.
     fun provideCoinPaprikaServices(): CoinPaprikaService {
         return Retrofit.Builder()
