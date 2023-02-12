@@ -20,8 +20,8 @@ fun TeamListItem(
     Column(
         modifier = modifier, verticalArrangement = Arrangement.Center
     ) {
-        SubTitle(subTitle = teamMember.name, windowSize = windowSize)
+        SubTitle(title = teamMember.name, windowSize = windowSize)
         Spacer(modifier = Modifier.height(2.dp))
-        SubTitle(subTitle = teamMember.position, windowSize = windowSize)
+        SubTitle(title = teamMember.position, windowSize = windowSize)
     }
 }

@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import sparespark.crypto.currency.core.Constants
-import sparespark.crypto.currency.core.Resource
+import sparespark.crypto.currency.core.secret.Constants
+import sparespark.crypto.currency.core.ResultWrapper
 import sparespark.crypto.currency.core.toCoinDetail
 import sparespark.crypto.currency.domain.model.coindetails.CoinDetail
 import sparespark.crypto.currency.domain.repository.CoinRepository
@@ -22,9 +22,9 @@ class GetSingleCoinUseCase @Inject constructor(
     private val coinRepository: CoinRepository
 ) {
 
-    operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = flow {
+    operator fun invoke(coinId: String): Flow<ResultWrapper<CoinDetail>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(ResultWrapper.Loading())
             /*
             * Emit multiple values over period of time:
             * loading, data and exception...
@@ -32,16 +32,16 @@ class GetSingleCoinUseCase @Inject constructor(
             *
             * */
             val coin = getCoin(coinId)
-            emit(Resource.Success(coin))
+            emit(ResultWrapper.Success(coin))
 
         } catch (e: HttpException) {
-            emit(Resource.Error(e.message ?: Constants.ERROR_OCCURRED))
+            emit(ResultWrapper.Error(e.message ?: Constants.ERROR_OCCURRED))
         } catch (e: IOException) {
-            emit(Resource.Error(e.message ?: Constants.NO_INTERNET))
+            emit(ResultWrapper.Error(e.message ?: Constants.NO_INTERNET))
         }
     }
 
     private suspend fun getCoin(coinId: String) = withContext(Dispatchers.IO) {
-        coinRepository.getCoinById(coinId).toCoinDetail()
+        coinRepository.getRemoteCoinById(coinId).toCoinDetail()
     }
 }

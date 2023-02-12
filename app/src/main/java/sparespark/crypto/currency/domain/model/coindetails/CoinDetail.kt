@@ -2,7 +2,6 @@ package sparespark.crypto.currency.domain.model.coindetails
 
 import sparespark.crypto.currency.data.remote.dto.coindetails.TeamMember
 
-
 data class CoinDetail(
     val coinId: String,
     val name: String,

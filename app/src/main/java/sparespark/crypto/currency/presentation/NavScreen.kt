@@ -4,4 +4,6 @@ sealed class NavScreen(val route: String) {
 
     object CoinsListNavScreen : NavScreen("coins_list_screen")
     object CoinDetailNavScreen : NavScreen("coin_details_screen")
+    object ArticlesListNavScreen : NavScreen("articles_list_screen")
+
 }

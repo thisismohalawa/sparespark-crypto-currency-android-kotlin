@@ -9,13 +9,15 @@ import sparespark.crypto.currency.domain.model.coinlist.Coin
 * DTO: data transfer object comes directly from api.
 *
 * */
-
 fun CoinDto.toCoin(): Coin {
     return Coin(
         id = id,
         name = name,
         symbol = symbol,
         rank = rank,
+        timestamp = "",
+        isFav = false,
+        isNew = isNew,
         isActive = isActive
     )
 }

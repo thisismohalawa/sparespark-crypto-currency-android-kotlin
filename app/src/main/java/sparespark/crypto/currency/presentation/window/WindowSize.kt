@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 
-
 enum class WindowType { Compact, Medium, Expanded }
 
 data class WindowSize(

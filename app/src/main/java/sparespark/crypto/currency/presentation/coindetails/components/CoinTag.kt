@@ -32,15 +32,21 @@ fun CoinTag(
             else 20.dp
         )
     }
+    val borderWidth by remember(key1 = windowSize) {
+        mutableStateOf(
+            if (windowSize.width == WindowType.Compact) 1.dp
+            else 5.dp
+        )
+    }
     Box(
         modifier = Modifier
             .border(
-                width = 1.dp,
+                width = borderWidth,
                 color = Color.Red,
                 shape = RoundedCornerShape(roundedBorderSize)
             )
             .padding(roundedBorderPadding)
     ) {
-        SubTitle(subTitle = tag, windowSize = windowSize)
+        SubTitle(title = tag, windowSize = windowSize)
     }
 }

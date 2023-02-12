@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import sparespark.crypto.currency.core.Constants
-import sparespark.crypto.currency.core.Resource
+import sparespark.crypto.currency.core.ResultWrapper
+import sparespark.crypto.currency.core.secret.Constants
 import sparespark.crypto.currency.domain.usecase.GetSingleCoinUseCase
 import javax.inject.Inject
 
@@ -20,10 +20,9 @@ class CoinDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     /*
-    * SavedStateHandle is a bundle which contain information.
+    * SavedStateHandle is a bundle which contain stored information.
     *
     * */
-
     private val _state = mutableStateOf(CoinDetailsViewState())
     val state: State<CoinDetailsViewState> = _state
 
@@ -36,13 +35,13 @@ class CoinDetailsViewModel @Inject constructor(
     private fun getCoin(coinId: String) {
         getSingleCoinUseCase(coinId).onEach { result ->
             when (result) {
-                is Resource.Loading ->
+                is ResultWrapper.Loading ->
                     _state.value =
                         CoinDetailsViewState(isLoading = true)
-                is Resource.Error ->
+                is ResultWrapper.Error ->
                     _state.value =
                         CoinDetailsViewState(error = result.message ?: Constants.ERROR_OCCURRED)
-                is Resource.Success ->
+                is ResultWrapper.Success ->
                     _state.value =
                         CoinDetailsViewState(coin = result.data)
             }

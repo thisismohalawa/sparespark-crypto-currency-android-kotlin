@@ -10,7 +10,6 @@ import sparespark.crypto.currency.data.remote.dto.coinslist.CoinDto
 //https://api.coinpaprika.com/v1/coins/btc-bitcoin
 
 interface CoinPaprikaService {
-
     @GET("v1/coins")
     suspend fun getCoins(): List<CoinDto>
 
